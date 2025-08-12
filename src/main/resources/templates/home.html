@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Home</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('books')}"></nav>
+    <div class="container">
+        <h1>Home</h1>
+
+        <hr />
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus temporibus voluptatum ipsam quo
+            consequatur. Tenetur, alias. Cupiditate, corrupti, alias reiciendis nulla illo itaque necessitatibus, atque
+            iste quis porro quasi voluptatibus?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit hic vero
+            autem. Ad magnam architecto quibusdam. Optio accusamus dignissimos quaerat earum quos soluta architecto
+            voluptate quis, vitae atque mollitia officiis Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Mollitia, velit libero excepturi beatae blanditiis assumenda dolor at enim, eum quas explicabo temporibus.
+            Itaque autem corporis quisquam culpa, error voluptatum quam.</p>
+    </div>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>
