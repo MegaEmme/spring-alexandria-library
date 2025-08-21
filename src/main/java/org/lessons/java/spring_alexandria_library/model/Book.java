@@ -42,10 +42,9 @@ public class Book {
     @NotNull
     private LocalDate pubblicationDate;
 
-    private Integer numberOfCopies;
-
     @NotNull
     @Min(value = 0, message = "The number of copies cannot be negative")
+    private Integer numberOfCopies;
 
     public Integer getId() {
         return this.id;
