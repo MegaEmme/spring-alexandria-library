@@ -43,23 +43,7 @@ public class BookController {
         return "books/show";
     }
 
-    // ROTTE QUERY CUSTOM
-    @GetMapping("/searchByTitle")
-    public String searchByTitle(@RequestParam(name = "title") String title, Model model) {
-
-        List<Book> books = repository.findByTitleContaining(title);
-        model.addAttribute("books", books);
-        return "books/index";
-    }
-
-    @GetMapping("/searchByTitleOrAuthor")
-    public String searchByTitleOrAuthor(@RequestParam(name = "query") String query, Model model) {
-
-        List<Book> books = repository.findByTitleContainingOrAuthorContaining(query, query);
-        model.addAttribute("books", books);
-        return "books/index";
-    }
-
+    // STORE
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
@@ -76,6 +60,49 @@ public class BookController {
         repository.save(formBook);
         return "redirect:/books";
 
+    }
+
+    // UPDATE
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("book", repository.findById(id).get());
+        return "books/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "books/edit";
+        }
+
+        repository.save(formBook);
+        return "redirect:/books";
+
+    }
+
+    // DELETE
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        repository.deleteById(id);
+        return "redirect:/books";
+    }
+
+    // ROTTE QUERY CUSTOM
+    @GetMapping("/searchByTitle")
+    public String searchByTitle(@RequestParam(name = "title") String title, Model model) {
+
+        List<Book> books = repository.findByTitleContaining(title);
+        model.addAttribute("books", books);
+        return "books/index";
+    }
+
+    @GetMapping("/searchByTitleOrAuthor")
+    public String searchByTitleOrAuthor(@RequestParam(name = "query") String query, Model model) {
+
+        List<Book> books = repository.findByTitleContainingOrAuthorContaining(query, query);
+        model.addAttribute("books", books);
+        return "books/index";
     }
 
 }

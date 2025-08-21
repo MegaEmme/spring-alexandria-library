@@ -29,6 +29,9 @@
                             <th>Publisher</th>
                             <th>Date</th>
                             <th>Copies</th>
+                            <th></th>
+                            <th>Actions</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +42,52 @@
                             <td>[[*{publisher}]]</td>
                             <td>[[*{pubblicationDate}]]</td>
                             <td>[[*{numberOfCopies}]]</td>
+                            <td>
+                                <a th:href="@{books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Show</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/books/edit/{id}(id = ${book.id})}"
+                                    class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                            <td>
+                                <!-- MODALE BOOTSTRAP PER BOTTONE DELETE -->
+                                <!-- 1) bottone delete che fa partire la modale  -->
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    th:data-bs-target="'#delete-modal-' + ${book.id}">
+                                    Delete
+                                </button>
+                                <!-- 2) modale che appare al click sul bottone delete  -->
+                                <div class="modal fade" th:id="'delete-modal-' + ${book.id}" tabindex="-1"
+                                    aria-labelledby="delete-modal" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    Deleting "[[${book.title}]]"
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete the book with title
+                                                <strong>"[[${book.title}]]"</strong>?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- bottone da cliccare per chiudere senza effetti  -->
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <!-- vero bottone della modale che fa partire la cancellazione con metodo delete  -->
+                                                <form class="d-inline-block"
+                                                    th:action="@{/books/delete/{id}(id = ${book.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
