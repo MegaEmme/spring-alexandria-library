@@ -7,10 +7,15 @@ import org.lessons.java.spring_alexandria_library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/books")
@@ -38,6 +43,7 @@ public class BookController {
         return "books/show";
     }
 
+    // ROTTE QUERY CUSTOM
     @GetMapping("/searchByTitle")
     public String searchByTitle(@RequestParam(name = "title") String title, Model model) {
 
@@ -52,6 +58,24 @@ public class BookController {
         List<Book> books = repository.findByTitleContainingOrAuthorContaining(query, query);
         model.addAttribute("books", books);
         return "books/index";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("book", new Book());
+        return "books/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "books/create";
+        }
+
+        repository.save(formBook);
+        return "redirect:/books";
+
     }
 
 }

@@ -39,13 +39,14 @@ public class Book {
     @Lob
     private String synopsis;
 
-    @NotNull
+    @NotNull(message = "Publication Date must be not null, not empty or blank")
     private LocalDate pubblicationDate;
 
-    @NotNull
+    @NotNull(message = "number of copies must be not null, not empty or blank")
     @Min(value = 0, message = "The number of copies cannot be negative")
     private Integer numberOfCopies;
 
+    // GETTER e SETTER
     public Integer getId() {
         return this.id;
     }
@@ -109,6 +110,8 @@ public class Book {
     public void setNumberOfCopies(Integer numberOfCopies) {
         this.numberOfCopies = numberOfCopies;
     }
+
+    // OVERRIDE TOSTRING
 
     @Override
     public String toString() {

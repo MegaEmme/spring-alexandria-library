@@ -12,6 +12,12 @@
         <h1>Books</h1>
         <hr />
 
+        <div class="mb-3 d-flex">
+            <a th:href="@{/books/create}" class="me-auto btn btn-primary btn-sm">
+                Create new Book
+            </a>
+        </div>
+
         <section class="row">
             <div class="col-12">
                 <table class="table" th:if="${books.size() > 0}">
