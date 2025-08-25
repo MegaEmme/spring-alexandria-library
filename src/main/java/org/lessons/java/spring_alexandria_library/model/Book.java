@@ -1,6 +1,7 @@
 package org.lessons.java.spring_alexandria_library.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -45,6 +47,18 @@ public class Book {
     @NotNull(message = "number of copies must be not null, not empty or blank")
     @Min(value = 0, message = "The number of copies cannot be negative")
     private Integer numberOfCopies;
+
+    // aggiunta di una relazione tra un LIBRO e 0,1 o più prestiti
+    @OneToMany(mappedBy = "book")
+    private List<Borrowing> borrowings;
+
+    public List<Borrowing> getBorrowings() {
+        return this.borrowings;
+    }
+
+    public void setBorrowings(List<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
 
     // GETTER e SETTER
     public Integer getId() {
