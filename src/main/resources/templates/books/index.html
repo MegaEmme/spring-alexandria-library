@@ -32,6 +32,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,10 @@
                             <td>[[*{publisher}]]</td>
                             <td>[[*{pubblicationDate}]]</td>
                             <td>[[*{numberOfCopies}]]</td>
+                            <td>
+                                <a th:href="@{books/{id}/borrow(id=${book.id})}"
+                                    class="btn btn-warning btn-sm">Borrow</a>
+                            </td>
                             <td>
                                 <a th:href="@{books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Show</a>
                             </td>

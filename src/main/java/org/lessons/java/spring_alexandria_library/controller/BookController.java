@@ -3,6 +3,7 @@ package org.lessons.java.spring_alexandria_library.controller;
 import java.util.List;
 
 import org.lessons.java.spring_alexandria_library.model.Book;
+import org.lessons.java.spring_alexandria_library.model.Borrowing;
 import org.lessons.java.spring_alexandria_library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,6 +86,14 @@ public class BookController {
     public String delete(@PathVariable Integer id) {
         repository.deleteById(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/{id}/borrow")
+    public String borrow(@PathVariable Integer id, Model model) {
+        Borrowing borrowing = new Borrowing();
+        borrowing.setBook(repository.findById(id).get());
+        model.addAttribute("borrowing", borrowing);
+        return "borrowings/create-or-edit";
     }
 
     // ROTTE QUERY CUSTOM

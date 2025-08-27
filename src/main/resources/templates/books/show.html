@@ -9,19 +9,59 @@
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('book')}"></nav>
     <main class="container bg-warning p-4 rounded" th:object="${book}">
-        <h1 class="mb-3 fw-bold">Book: [[*{title}]]</h1>
-        <hr />
-        <h2 class="mb-3">Written by: [[*{author}]]</h2>
-        <hr />
-        <h3 class="mb-3">Published in: [[*{pubblicationDate}]]</h3>
-        <hr />
-        <h3 class="mb-3">publisher: [[*{publisher}]]</h3>
-        <hr />
-        <h4 class="mb-3 text-success">ISBN: [[*{isbn}]]</h4>
-        <hr />
-        <h4 class="mb-3 text-primary">Synopsis: [[*{synopsis}]]</h4>
-        <hr />
-        <h4 class="text-danger">Availability: [[*{numberOfCopies}]] copies</h4>
+        <section class="row mb-3">
+            <div class="col-12">
+                <h1 class="mb-3 fw-bold">Book: [[*{title}]]</h1>
+                <hr />
+                <h2 class="mb-3">Written by: [[*{author}]]</h2>
+                <hr />
+                <h3 class="mb-3">Published in: [[*{pubblicationDate}]]</h3>
+                <hr />
+                <h3 class="mb-3">publisher: [[*{publisher}]]</h3>
+                <hr />
+                <h4 class="mb-3 text-success">ISBN: [[*{isbn}]]</h4>
+                <hr />
+                <h4 class="mb-3 text-primary">Synopsis: [[*{synopsis}]]</h4>
+                <hr />
+                <h4 class="text-danger">Availability: [[*{numberOfCopies}]] copies</h4>
+            </div>
+        </section>
+
+        <section class="row mb-3 borrowings">
+            <div class="col-12" th:unless="${book.getBorrowings().size()>0}">
+                <div class="alert alert-danger">
+                    <h4>There is no borrowing history for ths book</h4>
+                </div>
+            </div>
+            <div class="col-12" th:if="${book.getBorrowings().size()>0}">
+                <h2 class="fw-bold">Borrowings:</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Borrowing Date</th>
+                            <th>Return Date</th>
+                            <th>Notes</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="borrowing : *{borrowings}">
+                            <td>[[${borrowing.id}]]</td>
+                            <td>[[${borrowing.borrowingDate}]]</td>
+                            <td th:if="${borrowing.returnDate != null}">[[${borrowing.returnDate}]]</td>
+                            <td th:unless="${borrowing.returnDate != null}">Not returned yet</td>
+                            <td>[[${borrowing.notes}]]</td>
+                            <td>
+                                <a th:href="@{/borrowings/edit/{id}(id=${borrowing.id})}"
+                                    class="btn btn-success btn-sm">Update</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
     <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>
