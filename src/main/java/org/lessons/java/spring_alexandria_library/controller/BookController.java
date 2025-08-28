@@ -5,6 +5,7 @@ import java.util.List;
 import org.lessons.java.spring_alexandria_library.model.Book;
 import org.lessons.java.spring_alexandria_library.model.Borrowing;
 import org.lessons.java.spring_alexandria_library.repository.BookRepository;
+import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ public class BookController {
 
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private BorrowingRepository borrowingRepository;
 
     // INDEX
     @GetMapping
@@ -84,10 +88,29 @@ public class BookController {
     // DELETE
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        repository.deleteById(id);
+        // Qui ci si pone il problema di cancellare un libro a cui sono legate delle
+        // recensioni, come fare?
+        // 1) Prendere per ogni libro i prestiti ad esso collegati -->
+        // repository.getBorrowings()
+        // LI PRENDO DAL LIBRO
+        // 2) Elinimare quei prestiti dalla tabella borrowings nel db LI PRENDO DAI
+        // BORROWINGS (devo chiamare la repository di borrowing!) -->
+        // borrowingRepository.delete(borrowing)
+        // 3) A questo punto non ho piu vincoli di chiave esterna (FK) su book_id e
+        // posso dunque cancellare il libro
+
+        Book book = repository.findById(id).get();
+        // Se usi cascade nel Book (vedi Book ln.52) le prossime tre linee di codice
+        // sono inutili
+        for (Borrowing borrowingToDelete : book.getBorrowings()) {
+            borrowingRepository.delete(borrowingToDelete);
+        }
+
+        repository.delete(book);
         return "redirect:/books";
     }
 
+    // BORROW
     @GetMapping("/{id}/borrow")
     public String borrow(@PathVariable Integer id, Model model) {
         Borrowing borrowing = new Borrowing();

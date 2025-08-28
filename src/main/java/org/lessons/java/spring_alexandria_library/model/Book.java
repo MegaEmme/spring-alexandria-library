@@ -50,6 +50,11 @@ public class Book {
 
     // aggiunta di una relazione tra un LIBRO e 0,1 o più prestiti
     @OneToMany(mappedBy = "book")
+    // Altro metodo invece che modificare la DELETE nel controller (vedi
+    // BookController da ln.88 a ln.109) per poter
+    // eliminare un libro e tutti i suoi borrowings contestualmente (rimuovere
+    // vincolo chiave esterna (FK))
+    // @OneToMany(mappedBy = "book", cascade= { CascadeType.REMOVE})
     private List<Borrowing> borrowings;
 
     public List<Borrowing> getBorrowings() {
