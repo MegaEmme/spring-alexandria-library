@@ -50,19 +50,21 @@ public class BookController {
     }
 
     // STORE
+    // GET per mostrare il form
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
         return "books/create";
     }
 
+    // POST per inviare gli elementi del form
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
-
+        // Se ci sono errori ritorna al form vuoto
         if (bindingResult.hasErrors()) {
             return "books/create";
         }
-
+        // Altrimenti salva i dati e reindirizzami a "/books" per evitare invii multipli
         repository.save(formBook);
         return "redirect:/books";
 

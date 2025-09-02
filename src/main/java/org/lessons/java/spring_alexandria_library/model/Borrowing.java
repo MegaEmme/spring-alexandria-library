@@ -20,9 +20,9 @@ public class Borrowing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // libro da cui dipendo
+    // [(MANY) borrowings][(TO) che dipendono da ][un libro (ONE)]
     @ManyToOne
-    // foreign key
+    // foreign key si deve chiamare book_id
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
