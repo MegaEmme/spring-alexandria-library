@@ -57,6 +57,7 @@ public class Book {
     // @OneToMany(mappedBy = "book", cascade= { CascadeType.REMOVE})
     private List<Borrowing> borrowings;
 
+    // GETTER e SETTER
     public List<Borrowing> getBorrowings() {
         return this.borrowings;
     }
@@ -65,7 +66,6 @@ public class Book {
         this.borrowings = borrowings;
     }
 
-    // GETTER e SETTER
     public Integer getId() {
         return this.id;
     }

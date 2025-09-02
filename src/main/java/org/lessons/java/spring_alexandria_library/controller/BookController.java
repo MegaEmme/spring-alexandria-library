@@ -42,6 +42,8 @@ public class BookController {
     // SHOW
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
+        // .findById(id) mi restituisce un optional, ovvero mi dice se c'è o non c'è
+        // quello che cerco, per questo devo usare il .get() per prenderlo subito dopo
         Book book = repository.findById(id).get();
         model.addAttribute("book", book);
         return "books/show";

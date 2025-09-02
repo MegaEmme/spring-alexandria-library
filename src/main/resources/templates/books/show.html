@@ -8,10 +8,10 @@
 
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('book')}"></nav>
-    <main class="container bg-warning p-4 rounded" th:object="${book}">
+    <main class="container bg-dark p-4 rounded text-light" th:object="${book}">
         <section class="row mb-3">
             <div class="col-12">
-                <h1 class="mb-3 fw-bold">Book: [[*{title}]]</h1>
+                <h1 class="mb-3 fw-bold text-center">[[*{title}]] (Id: [[*{id}]])</h1>
                 <hr />
                 <h2 class="mb-3">Written by: [[*{author}]]</h2>
                 <hr />
@@ -19,11 +19,10 @@
                 <hr />
                 <h3 class="mb-3">publisher: [[*{publisher}]]</h3>
                 <hr />
-                <h4 class="mb-3 text-success">ISBN: [[*{isbn}]]</h4>
+                <h4 class="mb-3">Synopsis: [[*{synopsis}]]</h4>
                 <hr />
-                <h4 class="mb-3 text-primary">Synopsis: [[*{synopsis}]]</h4>
-                <hr />
-                <h4 class="text-danger">Availability: [[*{numberOfCopies}]] copies</h4>
+                <h4 class="mb-3 text-success text-end">ISBN: [[*{isbn}]]</h4>
+                <h4 class="text-danger text-end">Availability: [[*{numberOfCopies}]] copies</h4>
             </div>
         </section>
 
