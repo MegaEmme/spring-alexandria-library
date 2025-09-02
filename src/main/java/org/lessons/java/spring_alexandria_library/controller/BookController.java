@@ -69,13 +69,13 @@ public class BookController {
     }
 
     // UPDATE
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}/edit")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("book", repository.findById(id).get());
         return "books/edit";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/{id}/edit")
     public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {

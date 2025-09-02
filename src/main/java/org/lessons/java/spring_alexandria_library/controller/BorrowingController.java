@@ -35,7 +35,7 @@ public class BorrowingController {
 
     // metodo che restituisca una edit da compliare con gia dati inseriti
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}/edit")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("borrowing", repository.findById(id).get());
         model.addAttribute("edit", true);
@@ -44,7 +44,7 @@ public class BorrowingController {
 
     // metodo che effettui una update vera e propria
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/{id}/edit")
     public String update(@Valid @ModelAttribute("borrowing") Borrowing formBorrowing, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {

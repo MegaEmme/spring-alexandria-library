@@ -52,7 +52,7 @@
                             <td th:unless="${borrowing.returnDate != null}">Not returned yet</td>
                             <td>[[${borrowing.notes}]]</td>
                             <td>
-                                <a th:href="@{/borrowings/edit/{id}(id=${borrowing.id})}"
+                                <a th:href="@{/borrowings/{id}/edit(id=${borrowing.id})}"
                                     class="btn btn-success btn-sm">Update</a>
                             </td>
                         </tr>
