@@ -11,78 +11,70 @@
     <main class="container">
         <h1>Categories</h1>
         <hr />
-        <!-- 
+
         <div class="mb-3 d-flex">
-            <a th:href="@{/books/create}" class="me-auto btn btn-primary btn-sm">
-                Create new Book
+            <a th:href="@{/categories/create}" class="me-auto btn btn-primary btn-sm">
+                Create new Category
             </a>
         </div>
 
         <section class="row">
             <div class="col-12">
-                <table class="table" th:if="${books.size() > 0}">
+                <table class="table" th:if="${categories.size() > 0}">
                     <thead>
                         <tr>
-                            <th>ISBN</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Publisher</th>
-                            <th>Date</th>
-                            <th>Copies</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Number of books</th>
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="book : ${books}" th:object="${book}">
-                            <td>[[*{isbn}]]</td>
-                            <td>[[*{title}]]</td>
-                            <td>[[*{author}]]</td>
-                            <td>[[*{publisher}]]</td>
-                            <td>[[*{pubblicationDate}]]</td>
-                            <td>[[*{numberOfCopies}]]</td>
+                        <tr th:each="category : ${categories}" th:object="${category}">
+                            <td>[[*{id}]]</td>
+                            <td>[[*{name}]]</td>
+                            <td>[[*{books.size()}]]</td>
                             <td>
-                                <a th:href="@{books/{id}/borrow(id=${book.id})}"
-                                    class="btn btn-warning btn-sm">Borrow</a>
+                                <a th:href="@{categories/{id}(id=${category.id})}"
+                                    class="btn btn-primary btn-sm">Show</a>
                             </td>
                             <td>
-                                <a th:href="@{books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Show</a>
-                            </td>
-                            <td>
-                                <a th:href="@{/books/{id}/edit(id = ${book.id})}"
+                                <a th:href="@{/categories/{id}/edit(id = ${category.id})}"
                                     class="btn btn-success btn-sm">Edit</a>
                             </td>
                             <td>
-          
+
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    th:data-bs-target="'#delete-modal-' + ${book.id}">
+                                    th:data-bs-target="'#delete-modal-' + ${category.id}">
                                     Delete
                                 </button>
-    
-                                <div class="modal fade" th:id="'delete-modal-' + ${book.id}" tabindex="-1"
+
+                                <div class="modal fade" th:id="'delete-modal-' + ${category.id}" tabindex="-1"
                                     aria-labelledby="delete-modal" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                    Deleting "[[${book.title}]]"
+                                                    Deleting "[[${category.name}]]"
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Are you sure you want to delete the book with title
-                                                <strong>"[[${book.title}]]"</strong>?
+                                                Are you sure you want to delete the category with title
+                                                <strong>"[[${category.name}]]"</strong>?
                                             </div>
                                             <div class="modal-footer">
-                                           
+
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                             
+
                                                 <form class="d-inline-block"
-                                                    th:action="@{/books/delete/{id}(id = ${book.id})}" method="post">
+                                                    th:action="@{/categories/delete/{id}(id = ${category.id})}"
+                                                    method="post">
                                                     <button type="submit" class="btn btn-danger">
                                                         Delete
                                                     </button>
@@ -95,9 +87,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <p th:unless="${books.size() > 0}" th:text="There are no books available at the moment..." />
+                <p th:unless="${categories.size() > 0}"
+                    th:text="'There are no categories available at the moment...'" />
             </div>
-        </section> -->
+        </section>
     </main>
     <div th:replace="~{fragments/resources :: scripts}"></div>
 </body>
