@@ -8,7 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -60,6 +64,10 @@ public class Book {
     // }
     private List<Borrowing> borrowings;
 
+    @ManyToMany
+    @JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
     // GETTER e SETTER
     public List<Borrowing> getBorrowings() {
         return this.borrowings;
@@ -67,6 +75,14 @@ public class Book {
 
     public void setBorrowings(List<Borrowing> borrowings) {
         this.borrowings = borrowings;
+    }
+
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public Integer getId() {
