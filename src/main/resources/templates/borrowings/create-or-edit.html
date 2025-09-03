@@ -19,7 +19,7 @@
                         <div class="col-8">
 
                             <form id="borrowing-form" th:object="${borrowing}"
-                                th:action="${edit} ? @{|/borrowings/${borrowing.id}|/edit} : @{/borrowings/create}"
+                                th:action="${edit} ? @{/borrowings/{id}/edit(id = ${borrowing.id})} : @{/borrowings/create}"
                                 method="post">
                                 <!-- qui nascondo i dati del mio libro  -->
                                 <input type="hidden" th:field="*{book}" id="linked-book">
