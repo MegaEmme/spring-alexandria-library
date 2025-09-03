@@ -6,6 +6,7 @@ import org.lessons.java.spring_alexandria_library.model.Book;
 import org.lessons.java.spring_alexandria_library.model.Borrowing;
 import org.lessons.java.spring_alexandria_library.repository.BookRepository;
 import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository;
+import org.lessons.java.spring_alexandria_library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,9 @@ public class BookController {
 
     @Autowired
     private BorrowingRepository borrowingRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     // INDEX
     @GetMapping
@@ -54,6 +58,7 @@ public class BookController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "books/create";
     }
 
@@ -62,6 +67,7 @@ public class BookController {
     public String store(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
         // Se ci sono errori ritorna al form vuoto
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
             return "books/create";
         }
         // Altrimenti salva i dati e reindirizzami a "/books" per evitare invii multipli
@@ -74,6 +80,7 @@ public class BookController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("book", repository.findById(id).get());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "books/edit";
     }
 
@@ -81,6 +88,7 @@ public class BookController {
     public String update(@Valid @ModelAttribute("book") Book formBook, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
             return "books/edit";
         }
 

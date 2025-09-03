@@ -15,6 +15,16 @@
                 <hr />
                 <h2 class="mb-3">Written by: [[*{author}]]</h2>
                 <hr />
+                <th:block th:if="${book.getCategories().size() > 0}">
+                    <h3 class="mb-2">categories:</h3>
+                    <ul class="mb-3 ps-4">
+                        <li th:each="category : *{categories}" th:text="${category.name}" />
+                    </ul>
+                </th:block>
+                <th:block th:unless="${book.getCategories().size() > 0}">
+                    <p class="mb-3 alert alert-info">This book has no categories</p>
+                </th:block>
+                <hr />
                 <h3 class="mb-3">Published in: [[*{pubblicationDate}]]</h3>
                 <hr />
                 <h3 class="mb-3">publisher: [[*{publisher}]]</h3>

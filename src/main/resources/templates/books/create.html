@@ -35,6 +35,16 @@
                                         </ul>
                                     </div>
                                 </div>
+
+                                <div class="mb-3">
+                                    <div class="single-category form-check" th:each="category : ${categories}">
+                                        <input type="checkbox" th:id="|category-${category.id}|"
+                                            th:field="${book.categories}" th:value="${category.id}">
+                                        <label th:for="|category-${category.id}|" class="form-check-label"
+                                            th:text="${category.name}" />
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label" for="author">Author:</label>
                                     <input class="form-control" type="text" id="author" th:field="*{author}"
