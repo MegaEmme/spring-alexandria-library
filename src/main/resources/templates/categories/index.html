@@ -38,11 +38,11 @@
                             <td>[[*{name}]]</td>
                             <td>[[*{books.size()}]]</td>
                             <td>
-                                <a th:href="@{categories/{id}(id=${category.id})}"
+                                <a th:href="@{/categories/{id}(id=${category.id})}"
                                     class="btn btn-primary btn-sm">Show</a>
                             </td>
                             <td>
-                                <a th:href="@{/categories/{id}/edit(id = ${category.id})}"
+                                <a th:href="@{/categories/{id}/edit(id=${category.id})}"
                                     class="btn btn-success btn-sm">Edit</a>
                             </td>
                             <td>

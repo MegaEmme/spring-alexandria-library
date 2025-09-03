@@ -12,7 +12,7 @@
         <div class="col-12">
             <th:block>
                 <h1 th:if="${edit}" class="py-4 mb-2 text-center fw-bold">
-                    Category "[[${category.name}]]"
+                    Updating category "[[${category.name}]]"
                 </h1>
                 <h1 th:unless="${edit}" class="py-4 mb-2 text-center fw-bold">
                     Creating new category
@@ -27,22 +27,21 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name">Category Name:</label>
                                 <input class="form-control" type="text" placeholder="Thriller..." id="name"
-                                    th:field="*{name}" th:errorclass="is-invalid"
-                                    th:value="${category.name != null} ? ${#temporals.format(category.name, 'yyyy-MM-dd')} : ''">
+                                    th:field="*{name}" th:errorclass="is-invalid" />
                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                                     <ul>
-                                        <li th:each="error : ${#fields.errors('categoryDate')}" th:text="${error}" />
+                                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="title">Description:</label>
+                                <label class="form-label" for="description">Description:</label>
                                 <textarea id="description" class="form-control" th:field="*{description}"
                                     th:errorClass="is-invalid"></textarea>
                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
                                     <ul>
-                                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}" />
+                                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
                                     </ul>
                                 </div>
                             </div>

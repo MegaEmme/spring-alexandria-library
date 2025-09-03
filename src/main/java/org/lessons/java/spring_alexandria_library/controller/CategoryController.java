@@ -1,5 +1,6 @@
 package org.lessons.java.spring_alexandria_library.controller;
 
+import org.lessons.java.spring_alexandria_library.model.Book;
 import org.lessons.java.spring_alexandria_library.model.Category;
 import org.lessons.java.spring_alexandria_library.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,36 @@ public class CategoryController {
         }
 
         categoryRepository.save(formCategory);
+        return "redirect:/categories";
+    }
+
+    // UPDATE
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("category", categoryRepository.findById(id).get());
+        model.addAttribute("edit", true);
+        return "categories/create-or-edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String update(@Valid @ModelAttribute("category") Category formCategory, BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            return "categories/edit";
+        }
+        categoryRepository.save(formCategory);
+        return "redirect:/categories";
+    }
+
+    // DELETE
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") Integer id, Model model) {
+        // cancellare una categoria => book.getCategories().remove(category)
+        Category categoryToDelete = categoryRepository.findById(id).get();
+        for (Book linkedBook : categoryToDelete.getBooks()) {
+            linkedBook.getCategories().remove(categoryToDelete);
+        }
+        categoryRepository.delete(categoryToDelete);
         return "redirect:/categories";
     }
 }
