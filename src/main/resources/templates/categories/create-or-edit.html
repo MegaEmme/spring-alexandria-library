@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Categories</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('categories')}"></nav>
+    <main class="container">
+        <h1>Categories</h1>
+        <hr />
+        <!-- 
+        <div class="mb-3 d-flex">
+            <a th:href="@{/books/create}" class="me-auto btn btn-primary btn-sm">
+                Create new Book
+            </a>
+        </div>
+
+        <section class="row">
+            <div class="col-12">
+                <table class="table" th:if="${books.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>ISBN</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Publisher</th>
+                            <th>Date</th>
+                            <th>Copies</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="book : ${books}" th:object="${book}">
+                            <td>[[*{isbn}]]</td>
+                            <td>[[*{title}]]</td>
+                            <td>[[*{author}]]</td>
+                            <td>[[*{publisher}]]</td>
+                            <td>[[*{pubblicationDate}]]</td>
+                            <td>[[*{numberOfCopies}]]</td>
+                            <td>
+                                <a th:href="@{books/{id}/borrow(id=${book.id})}"
+                                    class="btn btn-warning btn-sm">Borrow</a>
+                            </td>
+                            <td>
+                                <a th:href="@{books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Show</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/books/{id}/edit(id = ${book.id})}"
+                                    class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                            <td>
+          
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    th:data-bs-target="'#delete-modal-' + ${book.id}">
+                                    Delete
+                                </button>
+    
+                                <div class="modal fade" th:id="'delete-modal-' + ${book.id}" tabindex="-1"
+                                    aria-labelledby="delete-modal" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    Deleting "[[${book.title}]]"
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete the book with title
+                                                <strong>"[[${book.title}]]"</strong>?
+                                            </div>
+                                            <div class="modal-footer">
+                                           
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                             
+                                                <form class="d-inline-block"
+                                                    th:action="@{/books/delete/{id}(id = ${book.id})}" method="post">
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p th:unless="${books.size() > 0}" th:text="There are no books available at the moment..." />
+            </div>
+        </section> -->
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>
