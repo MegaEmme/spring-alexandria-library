@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.lessons.java.spring_alexandria_library.model.Book;
 import org.lessons.java.spring_alexandria_library.model.Borrowing;
-import org.lessons.java.spring_alexandria_library.repository.BookRepository;
 import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository;
 import org.lessons.java.spring_alexandria_library.repository.CategoryRepository;
+import org.lessons.java.spring_alexandria_library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 public class BookController {
 
     @Autowired
-    private BookRepository repository;
+    private BookService bookService;
 
     @Autowired
     private BorrowingRepository borrowingRepository;
@@ -36,7 +36,7 @@ public class BookController {
     @GetMapping
     public String index(Model model) {
         // SELECT * FROM 'books' ==> lista di oggetti di tipo book
-        List<Book> books = repository.findAll();
+        List<Book> books = bookService.findAll();
 
         model.addAttribute("books", books);
 
@@ -48,12 +48,12 @@ public class BookController {
     public String show(@PathVariable("id") Integer id, Model model) {
         // .findById(id) mi restituisce un optional, ovvero mi dice se c'è o non c'è
         // quello che cerco, per questo devo usare il .get() per prenderlo subito dopo
-        Book book = repository.findById(id).get();
+        Book book = bookService.getById(id);
         model.addAttribute("book", book);
         return "books/show";
     }
 
-    // STORE
+    // CREATE
     // GET per mostrare il form
     @GetMapping("/create")
     public String create(Model model) {
@@ -71,7 +71,7 @@ public class BookController {
             return "books/create";
         }
         // Altrimenti salva i dati e reindirizzami a "/books" per evitare invii multipli
-        repository.save(formBook);
+        bookService.create(formBook);
         return "redirect:/books";
 
     }
@@ -79,7 +79,7 @@ public class BookController {
     // UPDATE
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("book", repository.findById(id).get());
+        model.addAttribute("book", bookService.getById(id));
         model.addAttribute("categories", categoryRepository.findAll());
         return "books/edit";
     }
@@ -92,7 +92,7 @@ public class BookController {
             return "books/edit";
         }
 
-        repository.save(formBook);
+        bookService.update(formBook);
         return "redirect:/books";
 
     }
@@ -111,14 +111,14 @@ public class BookController {
         // 3) A questo punto non ho piu vincoli di chiave esterna (FK) su book_id e
         // posso dunque cancellare il libro
 
-        Book book = repository.findById(id).get();
+        Book book = bookService.getById(id);
         // Se usi cascade nel Book (vedi Book ln.52) le prossime tre linee di codice
         // sono inutili
         for (Borrowing borrowingToDelete : book.getBorrowings()) {
             borrowingRepository.delete(borrowingToDelete);
         }
 
-        repository.delete(book);
+        bookService.delete(book);
         return "redirect:/books";
     }
 
@@ -126,7 +126,7 @@ public class BookController {
     @GetMapping("/{id}/borrow")
     public String borrow(@PathVariable Integer id, Model model) {
         Borrowing borrowing = new Borrowing();
-        borrowing.setBook(repository.findById(id).get());
+        borrowing.setBook(bookService.getById(id));
         model.addAttribute("borrowing", borrowing);
         return "borrowings/create-or-edit";
     }
