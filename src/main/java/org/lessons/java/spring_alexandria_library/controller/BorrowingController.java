@@ -2,6 +2,7 @@ package org.lessons.java.spring_alexandria_library.controller;
 
 import org.lessons.java.spring_alexandria_library.model.Borrowing;
 import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository;
+import org.lessons.java.spring_alexandria_library.service.BorrowingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import jakarta.validation.Valid;
 public class BorrowingController {
 
     @Autowired
-    private BorrowingRepository repository;
+    private BorrowingService service;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("borrowing") Borrowing formBorrowing, BindingResult bindingResult,
@@ -29,28 +30,26 @@ public class BorrowingController {
             return "borrowings/create-or-edit";
         }
 
-        repository.save(formBorrowing);
+        service.create(formBorrowing);
         return "redirect:/books/" + formBorrowing.getBook().getId();
     }
 
     // metodo che restituisca una edit da compliare con gia dati inseriti
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("borrowing", repository.findById(id).get());
+        model.addAttribute("borrowing", service.getById(id));
         model.addAttribute("edit", true);
         return "borrowings/create-or-edit";
     }
 
     // metodo che effettui una update vera e propria
-
     @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("borrowing") Borrowing formBorrowing, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             return "borrowings/create-or-edit";
         }
-        repository.save(formBorrowing);
+        service.update(formBorrowing);
         return "redirect:/books/" + formBorrowing.getBook().getId();
 
     }
