@@ -21,7 +21,7 @@
                     <div class="col-8">
 
                         <form id="category-form" th:object="${category}"
-                            th:action="${edit} ? @{/categories/{id}/edit(id = ${category.id})} : @{/categories/create}"
+                            th:action="${edit} ? @{/categories/edit/{id}(id = ${category.id})} : @{/categories/create}"
                             method="post">
 
                             <div class="mb-3">

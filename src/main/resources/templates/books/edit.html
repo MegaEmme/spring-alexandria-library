@@ -17,7 +17,7 @@
                     </h1>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <form id="book-form" th:action="@{/books/{id}/edit(id = ${book.id})}" th:object="${book}"
+                            <form id="book-form" th:action="@{/books/edit/{id}(id = ${book.id})}" th:object="${book}"
                                 method="post">
                                 <!-- CONTROLLO ERRORI PER CIASCUN CAMPO! -->
                                 <div class="mb-3">

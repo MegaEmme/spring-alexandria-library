@@ -55,14 +55,14 @@ public class CategoryController {
     }
 
     // UPDATE
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("category", categoryRepository.findById(id).get());
         model.addAttribute("edit", true);
         return "categories/create-or-edit";
     }
 
-    @PostMapping("/{id}/edit")
+    @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("category") Category formCategory, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
