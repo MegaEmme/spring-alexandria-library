@@ -1,7 +1,6 @@
 package org.lessons.java.spring_alexandria_library.controller;
 
 import org.lessons.java.spring_alexandria_library.model.Borrowing;
-import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository;
 import org.lessons.java.spring_alexandria_library.service.BorrowingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

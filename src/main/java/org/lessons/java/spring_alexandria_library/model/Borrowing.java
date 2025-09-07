@@ -2,6 +2,8 @@ package org.lessons.java.spring_alexandria_library.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Borrowing {
     @ManyToOne
     // foreign key si deve chiamare book_id
     @JoinColumn(name = "book_id", nullable = false)
+    @JsonIgnore
     private Book book;
 
     @NotNull(message = "The borrowing date cannot be null")

@@ -2,6 +2,8 @@ package org.lessons.java.spring_alexandria_library.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +34,7 @@ public class Category {
     // ln.69(circa cmq vedi la @manytomany) in
     // Book.java
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private List<Book> books;
 
     // GETTERS E SETTERS
