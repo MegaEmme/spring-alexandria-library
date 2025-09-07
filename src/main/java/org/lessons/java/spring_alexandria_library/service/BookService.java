@@ -33,6 +33,10 @@ public class BookService {
         return bookRepository.findAll(Sort.by("author"));
     }
 
+    public Optional<Book> findById(Integer id) {
+        return bookRepository.findById(id);
+    }
+
     public Book getById(Integer id) {
         // per gestire la casistica in cui non viene trovata la risorsa, prima mi creo
         // un optional, poi lo metto in un if, se non c'è restituisco 404, altrimenti
