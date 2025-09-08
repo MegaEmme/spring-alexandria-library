@@ -8,6 +8,7 @@ import org.lessons.java.spring_alexandria_library.repository.BorrowingRepository
 import org.lessons.java.spring_alexandria_library.repository.CategoryRepository;
 import org.lessons.java.spring_alexandria_library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,10 +35,10 @@ public class BookController {
 
     // INDEX
     @GetMapping
-    public String index(Model model) {
+    public String index(Authentication authentication, Model model) {
         // SELECT * FROM 'books' ==> lista di oggetti di tipo book
         List<Book> books = bookService.findAll();
-
+        model.addAttribute("username", authentication.getName());
         model.addAttribute("books", books);
 
         return "books/index";
