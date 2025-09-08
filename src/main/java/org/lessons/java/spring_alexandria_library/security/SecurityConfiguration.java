@@ -56,12 +56,17 @@ public class SecurityConfiguration {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         // QUESTO PROVIDER USERA X COME SERVIZIO DI RECUPERO DEGLI UTENTI VIA USERNAME
         // GLI PASSIAMO USERDETAILSERVICE, CHE DOBBIAMO ANCORA CREARE --> CREAZIONE
-        // USERDETAILSERVICE
-        authProvider.setUserDetailsService(null);
+        // DATABASEUSERDETAILSERVICE
+        authProvider.setUserDetailsService(userDetalService());
         // QUESTO PROVIDER USERA Y COME PASSWORD ENCODER
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
+    }
+
+    @Bean
+    DatabaseUserDetalService userDetalService() {
+        return new DatabaseUserDetalService();
     }
 
     @Bean
