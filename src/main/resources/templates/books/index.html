@@ -13,9 +13,12 @@
         <hr />
 
         <div class="mb-3 d-flex">
-            <a th:href="@{/books/create}" class="me-auto btn btn-primary btn-sm">
-                Create new Book
+            <a th:href="@{/books/create}" class="me-auto btn btn-primary btn-sm" sec:authorize="hasAuthority('ADMIN')">
+                </th>
+                <th sec:authorize="hasAuthority('ADMIN')">
+                    Create new Book
             </a>
+            <h3 th:text="'Ciao ' + ${username}" />
         </div>
 
         <section class="row">
@@ -31,8 +34,8 @@
                             <th>Copies</th>
                             <th></th>
                             <th></th>
-                            <th></th>
-                            <th></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,11 +53,11 @@
                             <td>
                                 <a th:href="@{books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Show</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/books/edit/{id}(id = ${book.id})}"
                                     class="btn btn-success btn-sm">Edit</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <!-- MODALE BOOTSTRAP PER BOTTONE DELETE  -->
                                 <!-- 1) bottone delete che fa partire la modale  -->
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
