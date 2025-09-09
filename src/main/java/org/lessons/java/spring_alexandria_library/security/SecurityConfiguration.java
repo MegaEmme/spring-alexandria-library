@@ -12,12 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity // usa questa config per tutte le richieste che arrivano
 public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
+                // Rotta base
+                .requestMatchers("/").hasAnyAuthority("USER", "ADMIN")
                 // I percorsi per creare e modificare i libri e le categorie sono per soli
                 // ADMIN.
                 .requestMatchers("books/create", "books/edit/**").hasAuthority("ADMIN")

@@ -87,6 +87,7 @@
 			<artifactId>bootstrap</artifactId>
 			<version>5.3.7</version>
 		</dependency>
+		
 		<!-- THYMELEAF -->
 		<dependency>
     		<groupId>org.thymeleaf.extras</groupId>
